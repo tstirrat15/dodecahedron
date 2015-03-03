@@ -64,7 +64,7 @@
    */
   DomReady.ready(function() {
     ThreeBox.preload([
-      '../mathbox/shaders/snippets.glsl.html',
+      '../mathbox/build/MathBox.glsl.html',
     ], function () {
 
       // MathBox boilerplate
@@ -101,6 +101,23 @@
 
       window.mathboxSetup(mathbox);
 
+      // Alla my stuff here.
+      mathbox.grid();
+
+      // Dodecahedron
+      // mathbox.vector({
+      //   n: 30,
+      //   arrow: false,
+      //   data: dodecahedron(),
+      // })
+
+      // Schlegel diagram
+      // mathbox.vector({
+      //   n: 10,
+      //   arrow: false,
+      //   line: false,
+      //   data: schlegel(),
+      // })
     });
   });
   </script>
@@ -110,5 +127,6 @@
 </head>
 <body>
   <div id="info"></div>
+
 </body>
 </html>

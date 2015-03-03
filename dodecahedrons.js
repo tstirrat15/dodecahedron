@@ -22,6 +22,10 @@ function dodecahedron() {
 			[-1/phi, phi, 0],
 			[-1/phi, -phi, 0] //19
 		];
+	return make_edges(vertices);
+}
+
+function make_edges(vertices) {
 	var vertex_pairs = [
 		[16,18],
 		[16,7],
@@ -54,6 +58,7 @@ function dodecahedron() {
 		[9,3],
 		[9,4],
 	];
+
 	var edges = [];
 	for(var i=0; i<30; i++) {
 		edges.push(vertices[vertex_pairs[i][0]]);
@@ -64,15 +69,48 @@ function dodecahedron() {
 
 function schlegel() {
 	var theta = Math.PI / 180 * 72;
-	var r1 = 1
-	var r2 = 1.5
-	var r3 = 2
-	var r4 = 3
+	var offset_angle = Math.PI / 2;
+	var inner_offset = theta / 2;
+	var radii = [1, 1.5, 2, 3];
+	var vertices = [];
+	for (var i = 0; i < 4; i++) {
+		for (var j = 0; j < 5; j++) {
+			if (i < 2) {
+				vertices.push(make_schlegel_vector(radii[i], theta * j /*+ offset_angle*/ + inner_offset));
+			} else {
+				vertices.push(make_schlegel_vector(radii[i], theta * j /*+ offset_angle*/));
+			}
+		}
+	}
 
-	
+	vertices = permute_vertices(vertices);
+
+	var edges = make_edges(vertices);
+
+	// var edges = [];
+
+	// for (i = 0; i < vertices.length - 1; i++) {
+	// 	edges.push(vertices[i])
+	// 	edges.push(vertices[i+1])
+	// }
+
+	return edges;
 
 }
 
 function make_schlegel_vector(r, theta) {
-	return [r * Math.cos(theta), Math.sin(theta), 0];
+	return [r * Math.cos(theta), r * Math.sin(theta), 0];
+}
+
+function permute_vertices(vertices) {
+	// var mapping = [3, 19, 17, 4, 9, 13, 6, 2, 12, 8, 1, 15, 11, 14, 7, 18, 5, 10, 0, 16];
+	// This permutation makes absolutely no fucking sense to me.
+	var mapping = [18, 10, 7, 0, 3, 16, 6, 14, 9, 4, 17, 12, 8, 5, 13, 11, 19, 2, 15, 1]; //15 18
+
+	var new_vertices = [];
+	for (i = 0; i < vertices.length; i++) {
+		new_vertices.push(vertices[mapping[i]]);
+	}
+
+	return new_vertices;
 }
