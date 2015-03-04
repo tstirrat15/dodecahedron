@@ -29,8 +29,8 @@
       // Cartesian viewport
       .viewport({
         type: 'cartesian',
-        range: [[-3, 3], [-2, 2], [-1, 1]],
-        scale: [1.5, 1, 1],
+        range: [[-3, 3], [-3, 3], [-3, 3]],
+        scale: [1, 1, 1],
       })
       .camera({
         orbit: 3.5,
@@ -101,19 +101,92 @@
 
       window.mathboxSetup(mathbox);
 
-      // Alla my stuff here.
+      // Setting up the base
       mathbox.grid();
 
+      mathbox.axis({
+        id: 'x-axis',
+        axis: 0,
+        color: 0xff0000,
+        ticks: 5,
+        lineWidth: 2,
+        size: .05,
+        labels: true,
+      });
+
+      mathbox.axis({
+        id: 'y-axis',
+        axis: 1,
+        color: 0x00ff00,
+        ticks: 5,
+        lineWidth: 2,
+        size: .05,
+        labels: true,
+        zero: false,
+      });
+
+      mathbox.axis({
+        id: 'z-axis',
+        axis: 2,
+        color: 0x00ff00,
+        ticks: 5,
+        lineWidth: 2,
+        size: .05,
+        zero: false,
+        labels: true,
+      });
+
+      // set up the edges of each shape
+
+      var dodecahedron_edges = dodecahedron();
+      var dodecahedron_translation = [0, 0, translation_factor()];
+      var dodecahedron_rotation = [(Math.PI - Math.atan(2)), 0, 0];
+
+      var schlegel_edges = schlegel();
+      var schlegel_rotation = [0,0, Math.PI / 180 * 72];
+      var schlegel_translation = [0,0, 0];
+      // set up the dodecahedron as a bunch of individual vectors.
+
+      function setup_figure(edges, figure_name, vector_rotations, vector_translations){
+        for (var i = 0; i < edges.length; i += 2) {
+          mathbox.vector({
+            n: 1,
+            id: figure_name + String(i),
+            arrow: false,
+            data: [edges[i], edges[i + 1]],
+            lineWidth: 3,
+            mathRotation: vector_rotations,
+            mathPosition: vector_translations
+          });
+        }
+      }
+
+      // setup_figure(dodecahedron_edges, "dodecahedron", dodecahedron_rotation, dodecahedron_translation);
+      // setup_figure(schlegel_edges, "schlegel", schlegel_rotation, schlegel_translation);
+
+
+      // The mapping from old vectors to new:
+      var theta = Math.PI / 180 * 72
+      var base_rotation = Math.PI / 2;
+      var inner_offset = true
+
+      function mapping(){
+
+      }
       // Dodecahedron
-      // mathbox.vector({
-      //   n: 30,
-      //   arrow: false,
-      //   data: dodecahedron(),
-      // })
+      mathbox.vector({
+        id: "dodecahedron",
+        n: 30,
+        arrow: false,
+        data: dodecahedron(),
+        mathRotation: [(Math.PI - Math.atan(2)), 0, 0],
+        mathPosition: [0, 0, translation_factor()]
+      })
 
       // Schlegel diagram
       // mathbox.vector({
-      //   n: 10,
+      //   id: "schlegel",
+      //   n: 30,
       //   arrow: false,
       //   line: false,
       //   data: schlegel(),

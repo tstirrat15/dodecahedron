@@ -1,3 +1,10 @@
+// Refactor to make an object that is a dodecahedron, with a bunch of vectors as elements.
+// Then we can manipulate them individually, color them as we need to, etc.
+
+// I hope it won't involve completely refactoring. We'll see.
+// But then we can just color individual things so that we can keep track of them.
+
+
 function dodecahedron() {
 	var phi = (1 + Math.sqrt(5)) / 2;
 	var vertices = [
@@ -22,7 +29,9 @@ function dodecahedron() {
 			[-1/phi, phi, 0],
 			[-1/phi, -phi, 0] //19
 		];
-	return make_edges(vertices);
+	var edges = make_edges(vertices);
+
+	return edges;
 }
 
 function make_edges(vertices) {
@@ -104,8 +113,8 @@ function make_schlegel_vector(r, theta) {
 
 function permute_vertices(vertices) {
 	// var mapping = [3, 19, 17, 4, 9, 13, 6, 2, 12, 8, 1, 15, 11, 14, 7, 18, 5, 10, 0, 16];
-	// This permutation makes absolutely no fucking sense to me.
-	var mapping = [18, 10, 7, 0, 3, 16, 6, 14, 9, 4, 17, 12, 8, 5, 13, 11, 19, 2, 15, 1]; //15 18
+	// This permutation makes absolutely no fucking sense to me, but it works.
+	var mapping = [18, 10, 7, 0, 3, 16, 6, 14, 9, 4, 17, 12, 8, 5, 13, 11, 19, 2, 15, 1];
 
 	var new_vertices = [];
 	for (i = 0; i < vertices.length; i++) {
@@ -114,3 +123,9 @@ function permute_vertices(vertices) {
 
 	return new_vertices;
 }
+
+function translation_factor() {
+	phi = (1 + Math.sqrt(5)) / 2;
+	return phi / Math.sqrt(3 - phi);
+}
+
