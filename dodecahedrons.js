@@ -129,3 +129,4 @@ function translation_factor() {
 	return phi / Math.sqrt(3 - phi);
 }
 
+// And I put all of the schlegels in terms of the original vectors, meaning that I can't actually grab them directly. Hmm.

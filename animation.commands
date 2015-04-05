@@ -1,3 +1,18 @@
 mathbox.animate("#dodecahedron", {data: schlegel(), mathRotation: [Math.PI,0,2 * Math.PI / 180 * 72], mathPosition: [0,0,0]}, {duration: 4000})
 
 mathbox.animate("#dodecahedron", {data: dodecahedron(), mathRotation: [(Math.PI - Math.atan(2)), 0, 0], mathPosition: [0, 0, translation_factor()]}, {duration: 4000})
+
+
+# World position version. Doesn't seem to help with the shimmy.
+
+mathbox.animate("#dodecahedron", {data: schlegel(), worldRotation: [Math.PI,0,2 * Math.PI / 180 * 72], worldPosition: [0,0,0]}, {duration: 4000})
+
+mathbox.animate("#dodecahedron", {data: dodecahedron(), worldRotation: [(Math.PI - Math.atan(2)), 0, 0], worldPosition: [0, 0, translation_factor()]}, {duration: 4000})
+
+
+So really, if I could get the rotations to act directly on the vectors themselves, without dealing with the math rotation, it seems like it'd work.
+
+The issue is that it's doing rotation at the same time as translation, where I'd like it to just do translation.
+
+I might work on this this afternoon.
+

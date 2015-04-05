@@ -157,6 +157,8 @@
             lineWidth: 3,
             mathRotation: vector_rotations,
             mathPosition: vector_translations
+            // worldRotation: vector_rotations,
+            // worldPosition: vector_translations
           });
         }
       }
@@ -179,8 +181,12 @@
         n: 30,
         arrow: false,
         data: dodecahedron(),
+        // This rotation should be exact - theoretically I can make use of this with a rotation
+        // matrix for the original vectors.
         mathRotation: [(Math.PI - Math.atan(2)), 0, 0],
         mathPosition: [0, 0, translation_factor()]
+        // worldRotation: [(Math.PI - Math.atan(2)), 0, 0],
+        // worldPosition: [0, 0, translation_factor()/2]
       })
 
       // Schlegel diagram
